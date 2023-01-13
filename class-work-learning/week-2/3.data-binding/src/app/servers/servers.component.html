@@ -1,0 +1,56 @@
+<app-server></app-server>
+<hr>
+<!-- PROPERTY BINDING AS DATA BINDING -->
+<!-- This is the process of linking an elements property-attribute to a variable defined a 
+component.The property to be connected is put inside [] and initialized to the component
+variable. -->
+<p>PROPERTY BINDING</p>
+<p>
+    This is the process of linking an elements property-attribute to a variable defined a component.
+    The property to be connected is put inside [] and initialized to the component variable.
+    For example -img [src]="imgUrl"- and -input type="email" [value]="user.email"- 
+    <br>
+    Binding can also be done to user defined components and  
+</p>
+<hr>
+<p>EVENT BINDING</p>
+<p>Event Binding: This involves linking an event listerner to a function(or code) to be triggered when the event occurs</p>
+
+<label>Server Name</label>
+<input type="text" class="form-control" (input)="onUpdateServerName($event)">
+<p>{{serverName}} .This is one way data binding</p>
+
+<!-- EVENT BINDING OCCURS HERE WHEN THE BUTTON IS CLICKED - A HANDLER FUNCTION IS CALLED  -->
+<button class="btn btn-primary" [disabled]='!allowNewServer' (click)="onCreateServer()">
+    Add Server
+</button>
+
+<p>{{ allowNewServer }} This is interpolation</p>
+<p [innerText]="allowNewServer"></p> <!-- putting text in between p element wont show that text -->
+
+<p>
+    Event Binding occurs here when the button is clicked, A handler function is called 
+    and changes are made in the next below.
+</p>
+<p>{{serverCreationStatus}}</p>
+<hr>
+
+<p>TWO WAY DATA BINDING</p>
+<p>
+The two-way binding has a feature to update data from component to view and vice-versa.
+In two way data binding, property binding and event binding are combined together.
+</p>
+
+<label>Server Name</label>
+<input type="text" class="form-control" [(ngModel)]="serverName">
+<p>{{serverName}}. This is two data binding</p>
+<p>{{serverCreationStatus}}</p>
+<button class="btn btn-primary" [disabled]='!allowNewServer' (click)="onCreateServer()">
+    Add New Server
+</button>
+
+
+
+
+
+

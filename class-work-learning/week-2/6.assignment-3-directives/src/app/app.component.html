@@ -1,0 +1,32 @@
+
+<!-- Adding bootstrap css -->
+<div class="wrapper">
+    <div class="holder">
+
+        <p *ngIf='showSecret'>Secret Password: amazingSimy</p>
+
+        <button class="btn btn-primary" (click) = 'showSecret = !showSecret'>
+            Toggle-Display Details(Inline Function)
+        </button>
+
+        <br><br>
+
+        <button class="btn btn-primary" (click) = onToggleDisplayDetails()>
+            Toggle-Display Details
+        </button>
+        <div *ngFor='let log of logs' 
+            [ngStyle]="{backgroundColor: log >= 5? 'blue' : 'transparent'}"
+            [ngClass]="{'white-color': log >= 5}">
+            {{log}}
+        </div>
+
+        <!-- let i = index, get the index of each item, index is reversed key word -->
+         <div *ngFor='let log of logs2; let i = index' 
+            [ngStyle]="{backgroundColor: i >= 4? 'blue' : 'transparent'}"
+            [ngClass]="{'white-color': i >= 4}">
+            {{log}}
+        </div>
+        
+
+    </div>
+</div>
