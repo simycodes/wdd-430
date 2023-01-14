@@ -1,0 +1,11 @@
+.light-grey-color {
+    background-color: #eee;
+}
+
+.light-grey-color button {
+    margin-top: 22px;
+}
+
+.contact-color-change:nth-child(even) {
+   background-color: #eee; 
+}
