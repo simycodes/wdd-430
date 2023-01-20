@@ -1,0 +1,41 @@
+
+<div class="container">
+  <!-- (serverCreated) AND (blueprintCreated) ARE USER DEFINED EVENTS DEFINED IN cockpit COMPONENT -->
+  <!-- CALLING EVENTS ON THE COMPONENT IN WHICH THEY ARE CREATED IN -->
+  <!-- $event HERE CONTAINS this.newServerName AND this.newServerContent EMITTED FROM cockpit  -->
+  <app-cockpit 
+  (serverCreated)="onServerAdded($event)"
+  (bpCreated)="onBlueprintAdded($event)"></app-cockpit>
+  
+  <hr>
+  <div class="row">
+    <div class="col-xs-12">  
+        <!-- COMPONENT BINDING THROUGH PARENT COMPONENT PROPERTY TO SUB COMPONENT PROPERTY -->
+        <!-- serverElement is data from parent component going to sub component via [element] -->
+       
+        <app-server-element *ngFor="let serverElement of serverElements" 
+        [serverElement]="serverElement"></app-server-element>
+
+        <!-- <p #learningParagraph>Element used in learning @ContentChild() concept</p> -->
+
+        <!-- CODE BELOW CAN BE USED WITH <ng-content></ng-content> defined in server.html -->
+        <!-- <app-server-element *ngFor="let serverElement of serverElements" 
+        [serverElement]="serverElement">
+          <p>
+            <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
+            <em *ngIf="serverElement.type === 'blueprint'" style="color: blue">{{ serverElement.content }}</em>
+          </p>
+        </app-server-element> -->
+       
+        <!-- COMPONENT PROPERTY BINDING WITH NO ALIAS
+        <app-server-element *ngFor="let serverElement of serverElements" 
+        [element]="serverElement"></app-server-element> -->
+
+        <!-- This is passing data from the parent component to the sub component being
+        looped by binding data from the parent element found inside an array to the 
+        property found inside the sub component being looped.
+        This is component binding by binding parent component property to sub component
+        property, so data from parent component can go the sub component. -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<h3>Directives</h3>
+
+<h4>*ngIf directive as a Structural directives: This changes the DOM layout by adding and removing DOM elements.</h4>
+<p>
+Directives are angular attributes/properties initialised to TS variables, expressions or methods.When initialised
+(most of them) they are used inside [ ] for  data binding to the TS variables, expressions or methods to be active
+</p>
+
+<label>Server Name</label>
+<input type="text" class="form-control" [(ngModel)]="serverName">
+
+<!-- When serverCreated is true then show below paragraph - when the p element is not even
+added to the DOM or to this page on the browser -->
+<p *ngIf="serverCreated">Server was created. Server name is : {{serverName}}</p>
+<button class="btn btn-primary" [disabled]='!allowNewServer' (click)="onCreateServer()">
+    Add New Server
+</button>
+
+<!-- Implement if-else with *ngIf -->
+<!-- <p *ngIf="serverCreated2"; else noServer>Success! Server name is : {{serverName}}</p> -->
+
+<!-- ng-template is an Angular element that is used for rendering HTML in a template -->
+<!-- <ng-template #noServer>
+    <p>No Serve Created Yet</p>
+</ng-template> -->
+
+<p>
+    *ngIf directive has asterisk in front because its a structural directive as it changes the structure of the dom of the
+page - or is used in placing and removing elements (nodes) on an html page.
+
+*ngIf is an attribute directive that is initialized to TS expression that results in a true or false.
+</p>
+
+<hr>
+
+<!-- *ngIf directive has asterisk in front because its a structural directive as it changes the
+structure of the dom of the page - or is used in placing and removing elements (nodes) on 
+an html page.
+
+*ngIf is an attribute directive that is initialized to TS expression that results in a 
+true or false. -->
+
+<h4>ngStyle directive as an attribute directives: This changes the appearance or behavior of an element, component, or another directive</h4>
+<p>ngStyle  - its often used as [NgStyles] but the [] are not part its syntax but are used for attribute binding</p>
+<p>allows dynamic change of css styles</p>
+<app-server></app-server>
+<app-server></app-server>
+
+<hr>
+
+<h4>ngClass directive as an attribute directives: This allows adding and removing classes dynamically from elements</h4>
+<p>ngClass  - its often used as [NgClass] but the [] are not part its syntax but are used for attribute binding</p>
+<app-server></app-server>
+<app-server></app-server>
+
+<hr>
+
+<h4>ngFor directive as a structural directives: The ngFor directive is used to repeat the same block(of  html and TS code combined) a specified number of times, in a 
+looping process.</h4>
+<p>
+    *ngFor attribute is initialized to a for loop expressions, and a variable defined in 
+    component is looped through.Example: 
+    -app-server *ngFor="let server of servers" -  -/app-server-
+</p>
+<p *ngIf="serverCreated">Server was created. Server name is : {{serverName}}</p>
+<input type="text" class="form-control" [(ngModel)]="serverName">
+<app-server *ngFor="let server of servers"></app-server>
+<button class="btn btn-primary" [disabled]='!allowNewServer' (click)="onCreateServer()">
+    Add New Server
+</button>
+
+
+
+
+
