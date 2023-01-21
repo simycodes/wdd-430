@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter, } from '@angular/core';
 import { Contact } from '../contact.model';
 
 @Component({
@@ -15,5 +15,16 @@ export class ContactListComponent {
     '../../assets/images/barzeer.jpg', null),
   ]; 
 
+  // CREATE AN EVENT VARIABLE TO BE TRIGGERED/EMITTED WHEN A CONTACT IN THE LIST
+  // IS SELECTED - (THIS IS AN EVENT LIKE CLICK BUT ITS USER DEFINED)
+  // When the end user clicks on a contact in the contact list, the selectedContactEvent
+  // will be fired and send the emitted event back up to the parent ContactsComponent. 
+  @Output() selectedContactEvent =  new EventEmitter<Contact>();
+
+  // THIS EVENT HANDLER IS CALLED TO TRIGGER THE EVENT ABOVE WHEN A CONTACT IS
+  // CLICKED ON (THIS IS AN EVENT HANDLER)
+  onSelected(contact: Contact) {
+    this.selectedContactEvent.emit(contact);
+  }
   
 }

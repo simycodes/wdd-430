@@ -1,0 +1,14 @@
+<!-- A single contact item -- several similar will be created according to size of array recipes-->
+<a href="#" class="list-group-item clearfix contact-color-change">
+    
+    <div class="pull-left">
+        <h4 class="list-group-item-heading">{{contact.name}}</h4>
+        <p class="list-group-item-text">{{contact.email}}</p>
+    </div>
+
+    <span class="pull-right">
+        <img src="{{contact.imageUrl}}" alt="{{contact.name}}" class="img-responsive" style="max-height: 70px;">
+        <!-- Linking image with data binding -->
+        <!-- <img [src]="recipe.imagePath" alt="{{recipe.name}}" class="img-responsive" style="max-height: 50px;"> -->
+    </span>
+</a>

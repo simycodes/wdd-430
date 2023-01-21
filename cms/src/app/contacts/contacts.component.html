@@ -1,12 +1,29 @@
 
 <div class="container" style="max-width: 1000px; padding: 30px;">
     <div class="row">
+<!-- bind the selectedContactEvent output from the ContactListComponent to a statement that
+      will assign the data passed with the event to a local variable -->
         <div class="col-md-5">
-            <cms-contact-list></cms-contact-list>
+            <cms-contact-list (selectedContactEvent)="selectedContact = $event"></cms-contact-list>
         </div>
 
         <div class="col-md-7">
-            <cms-contact-detail></cms-contact-detail>
+            <!-- DISPLAY THE DETAILS SECTION WHEN AN ITEM LIST HAS BEEN SELECTED -->
+            <cms-contact-detail
+             *ngIf="selectedContact; else infoText"
+             [contact]="selectedContact"
+            >
+            </cms-contact-detail>
+
+            <ng-template #infoText>
+                <div class="list-group main-container">
+                    <div class="list-group-item">
+                        <p><b><i>A Selected Contact Will Appear Here</i></b></p>
+                    </div>
+                </div>
+            </ng-template>
+            
+
         </div>
     </div> 
 </div>
