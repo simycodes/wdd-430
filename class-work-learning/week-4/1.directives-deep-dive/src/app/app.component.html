@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+        
+      <p>
+        Directives are angular attributes/properties initialized to TS variables, expressions or methods.When initialized
+        (most of them) they are used inside [] for  data binding to the TS variables, expressions or methods to be active
+      </p>
+
+      <p>       
+        If the ts variable/method that a directive is initialized to is true then the element on which the directive is placed will
+        be displayed else will not be displayed(*ngIf).Structural directives are used for conditional rendering in angular( especially use of *ngIf).
+      </p>
+
+      <h3>Structural Directives *ngIf="" and *ngFor="" & attribute directives [ngClass]="" </h3>
+
+      <button
+        class="btn btn-primary"
+        (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+      <br><br>
+
+      <ul class="list-group">
+        <div *ngIf="onlyOdd">
+            <!-- IMPLEMENTING STRUCTURAL AND ATTRIBUTES DIRECTIVES HERE -->
+            <li class="list-group-item" *ngFor="let odd of oddNumbers"
+            [ngClass]="{odd: odd % 2 !== 0}"
+            [ngStyle]="{backgroundColor: odd % 2 !== 0? 'yellow' : 'transparent'}">
+                {{ odd }}
+            </li>
+        </div>
+
+        <div *ngIf="!onlyOdd">
+            <li class="list-group-item" *ngFor="let even of evenNumbers"
+            [ngClass]="{odd: even % 2 !== 0}"
+            [ngStyle]="{backgroundColor: even % 2 !== 0? 'green' : 'transparent'}">
+                {{ even }}
+            </li>
+        </div>  
+
+        <!-- ALTERNATIVE CODE OF USING *ngIf="!onlyOdd"  -->
+        <!-- <ng-template [ngIf]="!onlyOdd">
+          <div>
+            <li class="list-group-item" *ngFor="let even of evenNumbers"
+            [ngClass]="{odd: even % 2 !== 0}"
+            [ngStyle]="{backgroundColor: even % 2 !== 0? 'green' : 'transparent'}">
+                {{ even }}
+            </li>
+          </div>
+        </ng-template> -->
+
+      </ul>
+
+      <ng-template [ngIf]="onlyOdd">
+        <p>Only odd</p>
+      </ng-template>
+
+      <h3>Using a custom directive -  basic approach</h3>
+      <p appBasicHighlight>This element is styled using a custom directive</p>
+
+      <h3>Using a custom directive using render angular library function - better approach</h3>
+      <p appBetterHighlight>This element is styled using a custom directive</p>
+
+    </div>
+  </div>
+</div>

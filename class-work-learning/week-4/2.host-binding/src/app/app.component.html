@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+        
+      <h2>@HostBinding() and @HostListener() used inside a directive </h2>
+
+      <h4>
+        HostBinding('value') myValue; is exactly the same as [value]="myValue"
+        And HostListener('click') myClick() -kelly braces here- is exactly the same as (click)="myClick()"
+        HostBinding and HostListener are written in directives and the other ones (...) and
+         [..] are written inside templates (of components).
+      </h4>
+
+      <h3>Using @HostBinding() and @HostListener() for attribute binding & conditional rendering</h3>
+      <p appBetterHighlight [defaultColor]=" 'yellow' "
+      [highlightColor]=" 'red' ">Hover here to see working Using custom directive, @HostBinding() and @HostListener() </p>
+
+      <!-- THIS CAN BE DONE AS PROPERTY BINDING WHEN PASSING/BINDING WITH A STRING -->
+      <!-- <p appBetterHighlight defaultColor="yellow" ></p> -->
+    </div>
+  </div>
+</div>
