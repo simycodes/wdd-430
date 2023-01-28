@@ -1,11 +1,23 @@
 <div class="row">
   <div class="col-md-5">
     <!--Add tag to load the DocumentListComponent here-->
-    <cms-document-list></cms-document-list>
+    <cms-document-list (selectedDocumentEvent)="selectedDocument = $event"></cms-document-list>
   </div>
 
-<div class="col-md-4">
+  <div class="col-md-4">
     <!--Add tag to load the DocumentDetailComponent here-->
-    <cms-document-detail></cms-document-detail>
-</div>
+    <cms-document-detail 
+    *ngIf="selectedDocument; else infoText"
+    [document]="selectedDocument"
+    ></cms-document-detail>
+  </div>
+
+  <ng-template #infoText>
+    <div class="list-group main-container">
+        <div class="list-group-item">
+            <p><b><i>A Selected Document Will Appear Here</i></b></p>
+        </div>
+    </div>
+  </ng-template>
+
 </div>

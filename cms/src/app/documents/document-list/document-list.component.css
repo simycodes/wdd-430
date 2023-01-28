@@ -1,0 +1,16 @@
+.light-grey-color {
+    background-color: #eee;
+}
+
+.light-grey-color h1 {
+    margin-left: 15px;
+}
+
+.light-grey-color .btn {
+    margin-top: 22px;
+    margin-right: 15px;
+}
+
+.document-color-change:nth-child(even) {
+   background-color: #eee; 
+}
