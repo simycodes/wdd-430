@@ -4,7 +4,7 @@
         <div class="col-xs-12">
             <h1 class="pull-left">Contacts</h1>
             
-            <button class="pull-right btn btn-success">
+            <button routerLink="new" class="pull-right btn btn-success">
                 Add New Contact
             </button>
         </div>
@@ -15,8 +15,7 @@
         <!-- PASSING DATA FROM PARENT TO SUB COMPONENT -->
         <cms-contact-item 
             *ngFor='let contactElement of contacts'
-            [contact]="contactElement"
-            (click)="onSelected(contactElement)">
+            [contact]="contactElement">
         </cms-contact-item>
         
         </div>

@@ -10,6 +10,8 @@ export class ContactService {
   contacts: Contact[] = [];
   // CREATE THE CONTACT SELECTED EVENT - TRIGGERS WHEN A CONTACT IN CONTACT LIST IS SELECTED
   contactSelectedEvent = new EventEmitter<Contact>();
+  // EMITTER TO SIGNAL DELETION SO CHANGES CAN BE MADE TO ACTUAL LIST OF DOCUMENTS
+  contactChangedEvent = new EventEmitter<Contact[]>();
 
   constructor() {
     // INITIALIZE CLASS contacts variable TO IMPORTED CONTACTS
@@ -29,18 +31,34 @@ export class ContactService {
       }
     }
   }
-  // getContact(id: string): Contact {
-  //   this.contacts.forEach(contact => {
-  //     if (contact.id == id) {
-  //       return contact;
+  
+  // WORKING ALTERNATIVE CODE
+  // getContact(id: string) : Contact{
+  //   for (const contact of this.contacts) {
+  //     if(contact.id == id) {
+  //       console.log("found!")
+  //        return contact;
   //     }
-  //   })
+  //   }
   //   return null;
   // }
-
   
-
-  
+  // FUNCTION TO DELETE A CONTACT
+  deleteContact(contact: Contact) {
+    if (!contact) {
+      return;
+    }
+    const pos = this.contacts.indexOf(contact);
+    if (pos < 0) {
+      return;
+    }
+    // The splice() array method is called to remove the document at the 
+    // specified index position from the array
+    this.contacts.splice(pos, 1);
+    // We then emit the contactChangedEvent to signal that a change has been made to the
+    // contact list and pass it a copy of the contact list stored in the ContactService class.
+    this.contactChangedEvent.emit(this.contacts.slice());
+  }
 
 }
 

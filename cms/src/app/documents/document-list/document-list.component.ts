@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Document } from '../document.model';
 import { DocumentService } from '../document.service';
 
@@ -7,7 +7,7 @@ import { DocumentService } from '../document.service';
   templateUrl: './document-list.component.html',
   styleUrls: ['./document-list.component.css']
 })
-export class DocumentListComponent {
+export class DocumentListComponent implements OnInit {
   // ARRAY OF DOCUMENTS TO BE DISPLAYED IN THE DOCUMENTS LIST TEMPLATE
   documents: Document[] = [];
 
@@ -17,11 +17,12 @@ export class DocumentListComponent {
   // USE DOCUMENT SERVICE TO INITIALIZE THE DOCUMENT-LIST COMPONENT ARRAY VARIABLE
   ngOnInit() {
     this.documents = this.documentService.getDocuments();
+    // CHANGE THE LIST OF DOCUMENTS IN CASE OF ANY DOCUMENT BEING DELETED-UPDATED-ADDED
+    this.documentService.documentChangedEvent
+    .subscribe((documents: Document[])=> {
+      this.documents = documents;
+    })
   }
 
-  // THIS EVENT HANDLER IS CALLED TO TRIGGER THE CONTACT SERVICE WHEN A CONTACT IS
-  // CLICKED ON (THIS IS AN EVENT HANDLER)
-  onSelected(document: Document) {
-    this.documentService.documentSelectedEvent.emit(document);
-  }
+
 }

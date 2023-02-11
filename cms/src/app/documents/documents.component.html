@@ -5,11 +5,8 @@
   </div>
 
   <div class="col-md-4">
-    <!--Add tag to load the DocumentDetailComponent here-->
-    <cms-document-detail 
-    *ngIf="selectedDocument; else infoText"
-    [document]="selectedDocument"
-    ></cms-document-detail>
+    <!-- LOADING ROUTER FOR SUB COMPONENTS -->
+    <router-outlet></router-outlet>
   </div>
 
   <ng-template #infoText>

@@ -8,12 +8,8 @@
         </div>
 
         <div class="col-md-7">
-            <!-- DISPLAY THE DETAILS SECTION WHEN AN ITEM LIST HAS BEEN SELECTED -->
-            <cms-contact-detail
-             *ngIf="selectedContact; else infoText"
-             [contact]="selectedContact"
-            >
-            </cms-contact-detail>
+            <!-- DISPLAY SUB COMPONENTS - EDIT  COMPONENT AND DETAILS -->
+            <router-outlet></router-outlet>
 
             <ng-template #infoText>
                 <div class="list-group main-container">

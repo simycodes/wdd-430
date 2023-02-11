@@ -1,7 +1,11 @@
-<a class="list-group-item clearfix documentDiv" >
+
+<!-- [index] IS PASSED TO RECIPE DETAIL TO BE USED TO FETCH DATA IN THAT COMPONENT -->
+<!-- [index] IS PASSED FROM RECIPE LIST TO RECIPE ITEM IN THE FOR LOOP -->
+<a [routerLink]="[document.id]" routerLinkActive="active" class="list-group-item clearfix documentDiv" >
   <!-- Display document name here -->
   <div class="pull-left">
     <p class="list-group-item-heading">{{document.name}}</p>
+    <!-- <p>id: {{document.id}}</p> -->
   </div>
 </a>
 

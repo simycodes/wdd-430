@@ -3,18 +3,16 @@
 <div class="panel-heading light-grey-color">
   <div class="row pad-left-right">
     <h1 class="pull-left title">Documents</h1>
-    <a class="btn btn-success pull-right">Add Document</a>
+    <!-- LINK TO THE SUB COMPONENT - DISPLAYED USING SUB ROUTING -->
+    <a routerLink="new" class="btn btn-success pull-right">Add Document</a>
   </div>
 </div>
 
 <div class="panel-body">
     <div class="center-panel">
-      <!--Add tag to display a list of DocumentItem components-->
       <!-- DISPLAYING A LIST OF DOCUMENTS -->
-      <cms-document-item *ngFor='let documentElement of documents' 
-        [document]="documentElement"
-        (click)="onSelected(documentElement)"
-      >
+      <cms-document-item *ngFor='let documentElement of documents;' 
+        [document]="documentElement">
       </cms-document-item>
     </div>
 </div>
