@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!-- NgForms creates a top-level FormGroup instance and binds it to a form to track aggregate
+      form value and validation status. -->
+      <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
+        <div id="user-data">
+          <!-- INPUT ELEMENTS USED IN A FORM MUST BE REGISTERED WITH ANGULAR FOR THEM TO BE USED 
+          SO ANGULAR KNOWS THAT THEY ARE INPUT CONTROLS - USE ngModel DIRECTIVE TO DO THIS-->
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input 
+              type="email" 
+              id="email" 
+              class="form-control"
+              ngModel
+              required
+              name="email"
+              class="form-control"
+              #email="ngModel">
+              <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
+          </div>
+
+          <div class="form-group">
+          <label for="subscription">Choose a Subscription</label>
+          <select 
+            name="subscription"
+            id="subscription" 
+            [ngModel]="selectedSubscription"
+            class="form-control">
+            <option
+              *ngFor="let subscription of subscriptions"
+              [value]="subscription">
+              {{ subscription }}
+            </option>
+          </select>
+        </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input 
+              name="password"
+              ngModel
+              required
+              type="password" 
+              id="password" 
+              class="form-control"
+              #password="ngModel">
+              <span class="help-block" *ngIf="!password.valid && password.touched">Please enter a valid password!</span>
+          </div>
+        </div>
+        
+        <p *ngIf="!signupForm.valid && signupForm.touched">The form is invalid</p>
+        <button class="btn btn-primary" type="submit">Submit</button>
+         
+      </form>
+    </div>
+  </div>
+</div>
