@@ -12,7 +12,7 @@ export class ContactListComponent implements OnInit, OnDestroy {
   // contacts variable has datatype of an array of object of a Contact Model
   contacts: Contact[] = []; 
   private subscription: Subscription; // THIS WILL STORE A SUBSCRIPTION PROCESS
-
+  // contactGroup: Contact[] = [];
   // GET THE CONTACTS SERVICE
   constructor(private contactService: ContactService) { }
 

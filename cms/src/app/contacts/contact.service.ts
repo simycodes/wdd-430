@@ -60,7 +60,7 @@ export class ContactService {
   }
 
   // FUNCTION TO ADD A DOCUMENT
-  addDocument(newContact: Contact) {
+  addContact(newContact: Contact) {
     // check to see if an actual document was passed to the function
     if (!newContact) {
       return;

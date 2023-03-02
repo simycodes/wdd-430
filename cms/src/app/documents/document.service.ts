@@ -59,6 +59,7 @@ export class DocumentService {
     this.maxDocumentId++;
     newDocument.id = this.maxDocumentId.toString(); // newDocument.id GETS A String NOT a number
     this.documents.push(newDocument);
+    
     // GET A COPY OF THE UPDATED DOCUMENTS LIST HAVING NEWLY ADDED DOCUMENT
     let documentsListClone = this.documents.slice();
     // SEND THE COPY/CLONE ARRAY OF DOCUMENTS LIST HAVING NEWLY ADDED DOCUMENT
@@ -70,18 +71,22 @@ export class DocumentService {
   // FUNCTION TO UPDATE A DOCUMENT
   updateDocument(originalDocument: Document, newDocument: Document) {
     if (!originalDocument || !newDocument) {
-      return
+      return;
     }
-    // indexOf() getS the index position of the original document in the documents list
+
+    // indexOf() gets the index position of the original document in the documents list
     let pos = this.documents.indexOf(originalDocument);
+    console.log("THE INDEX POS IS " + pos);
     if (pos < 0) {
       return;
     }
+
     // ASSIGN ID OF NEW UPDATED DOCUMENT WITH ID OF OLD NOT UPDATED DOCUMENT 
     newDocument.id = originalDocument.id;
     // documents list is then updated by assigning newDocument to the position in the 
     // documents list where the originalDocument was found.
     this.documents[pos] = newDocument;
+    console.log("DOCUMENT UPDATED")
     // GET A COPY OF THE UPDATED DOCUMENTS LIST HAVING NEWLY ADDED DOCUMENT
     let documentsListClone = this.documents.slice();
     this.documentListChangedEvent.next(documentsListClone);
@@ -89,6 +94,7 @@ export class DocumentService {
 
   // FUNCTION TO DELETE A DOCUMENT
   deleteDocument(document: Document) {
+    console.log(document);
     if (!document) {
       return;
     }

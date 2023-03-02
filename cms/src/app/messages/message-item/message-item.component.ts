@@ -19,7 +19,7 @@ export class MessageItemComponent implements OnInit {
   // THE MESSAGE FROM ID TO GET A GIVEN CONTACT AND THEN GET NAME FROM THAT CONTACT
   ngOnInit() {
     // console.log(this.message);
-    console.log(this.message.sender);
+    // console.log(this.message.sender);
     const contact: Contact = this.contactService.getContact(this.message.sender);
     // console.log(contact);
     this.messageSender = contact.name;

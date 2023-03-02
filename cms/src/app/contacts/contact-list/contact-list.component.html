@@ -15,7 +15,9 @@
         <!-- PASSING DATA FROM PARENT TO SUB COMPONENT -->
         <cms-contact-item 
             *ngFor='let contactElement of contacts'
-            [contact]="contactElement">
+            [contact]="contactElement"
+            dnd-draggable [dragEnabled]="true" [dragData]="contactElement"
+            [dropZones]="['contactGroup']">
         </cms-contact-item>
         
         </div>
