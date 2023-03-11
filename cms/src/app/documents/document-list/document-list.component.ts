@@ -12,26 +12,23 @@ export class DocumentListComponent implements OnInit, OnDestroy {
   // ARRAY OF DOCUMENTS TO BE DISPLAYED IN THE DOCUMENTS LIST TEMPLATE
   documents: Document[] = [];
   private subscription: Subscription; // THIS WILL STORE A SUBSCRIPTION PROCESS
+  isLoading: boolean = false;
 
   // GET THE DOCUMENTS SERVICE
   constructor(private documentService: DocumentService) { }
 
   // USE DOCUMENT SERVICE TO INITIALIZE THE DOCUMENT-LIST COMPONENT ARRAY VARIABLE
   ngOnInit() {
-    // INITIALIZING THE DOCUMENTS WITH DATA FROM THE SERVICE(FROM FILE OR DB)
-    this.documents = this.documentService.getDocuments();
-
+    this.isLoading = true;
+    // INITIALIZING THE DOCUMENTS WITH DATA FROM THE SERVICE(DB)
+    this.documentService.getDocuments();
     // SUBSCRIBING TO THE SUBJECT OBSERVABLE FROM THE DOCUMENT SERVICE
     // CHANGE THE LIST OF DOCUMENTS IN CASE OF ANY DOCUMENT BEING DELETED-UPDATED-ADDED
     this.subscription = this.documentService.documentListChangedEvent
     .subscribe((documentsList: Document[]) => {
       this.documents = documentsList;
+      this.isLoading = false;
     })
-    // USING THE EMITTER FOR SAME FUNCTIONALITY AS SUBJECT ABOVE
-    // this.documentService.documentChangedEvent
-    // .subscribe((documents: Document[])=> {
-    //   this.documents = documents;
-    // })
   }
 
   //UNSUBSCRIBING FROM THE SUBJECT OBSERVABLE

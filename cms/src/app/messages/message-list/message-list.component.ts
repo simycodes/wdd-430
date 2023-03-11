@@ -10,17 +10,20 @@ import { MessageService } from '../message.service';
 export class MessageListComponent implements OnInit {
   // LIST OF MESSAGES TO BE DISPLAYED INSIDE EACH MESSAGE ITEM
   messages: Message[] = [];
+  isLoading: boolean = false;
 
   // GET THE CONTACTS SERVICE
   constructor(private messageService: MessageService) { }
 
   // USE CONTACT SERVICE TO INITIALIZE THE CONTACT COMPONENT ARRAY VARIABLE
   ngOnInit() {
-    this.messages = this.messageService.getMessages();
+    this.isLoading = true;
+    this.messageService.getMessages();
     // DISPLAY NEW ARRAY-UPDATED OF MESSAGES LIST WITH ADDED INGREDIENT
     this.messageService.messageChangedEvent.
       subscribe((messages: Message[])=>{
       this.messages = messages;
+      this.isLoading = false;
     })
   }
 

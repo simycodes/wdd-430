@@ -18,7 +18,7 @@ const appRoutes: Routes = [
         // PLACE DYNAMIC PARAMS CLOSE TO EACH OTHER AT THE END :id THEN :id/edit
         // BECAUSE 'new' MAY BE CONSIDERED AS AN ID IF PLACED AFTER :id
     ]},
-    {path: 'messages', component: MessageListComponent},
+    {path: 'messages', component: MessageListComponent, resolve: [] },
     {path: 'contacts', component: ContactsComponent, children: [
         { path: 'new', component: ContactEditComponent},
         { path: ':id', component: ContactDetailComponent },

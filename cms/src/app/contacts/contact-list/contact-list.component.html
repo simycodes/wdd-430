@@ -1,26 +1,57 @@
 <ul class="list-group">
 
-    <div class="list-group-item row light-grey-color">
-        <div class="col-xs-12">
-            <h1 class="pull-left">Contacts</h1>
-            
-            <button routerLink="new" class="pull-right btn btn-success">
-                Add New Contact
-            </button>
+    <div class="list-group-item row  light-grey-color">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+            <span class="title pad-left-right"><h1>Contacts</h1></span>
+            </div>
+            <div class="row">
+            <div class="input-group pull-left pad-left-right col-xs-7">
+                <!-- Add the search box input field here -->
+                <!--(keyup) event fires each time you press any key in the input text field. -->
+                <input 
+                    type="text" 
+                    #searchBox
+                    (keyup)="search(searchBox.value)"
+                    class="form-control"
+                    placeholder="Enter a search value"
+                >
+                <div 
+                    class="glyphicon glyphicon-search input-group-addon" 
+                    (click)="search(searchBox.value)">
+                </div>
+            </div>
+            <div class="pull-right pad-left-right">
+                <a class="btn btn-success" [routerLink]="['new']">New Contact</a>
+            </div>
+            </div>
         </div>
+        </div>
+    </div>
     </div>
 
     <div class="list-group-item row">
         <div class="col-xs-12">
         <!-- PASSING DATA FROM PARENT TO SUB COMPONENT -->
         <cms-contact-item 
-            *ngFor='let contactElement of contacts'
+            *ngFor='let contactElement of contacts | contactsFilter:term'
             [contact]="contactElement"
             dnd-draggable [dragEnabled]="true" [dragData]="contactElement"
             [dropZones]="['contactGroup']">
         </cms-contact-item>
         
         </div>
+    </div>
+
+    <div *ngIf="isLoading" class="list-group-item row">
+      <div class="col-xs-12">
+        <img 
+          src="../../../assets/images/loading-spinner.gif" 
+          alt="loading gif image"
+          style="margin-left: 150px;">
+      </div>
     </div>
     
 </ul>

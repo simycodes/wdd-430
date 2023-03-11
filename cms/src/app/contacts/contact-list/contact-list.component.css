@@ -9,3 +9,8 @@
 .contact-color-change:nth-child(even) {
    background-color: #eee; 
 }
+
+.panel-heading {
+    padding: 4rem;
+    border: 1px dotted #eee;
+}

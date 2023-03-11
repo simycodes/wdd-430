@@ -19,6 +19,19 @@
                </div>
             </div>
          </div>
+
+         <div *ngIf="isLoading" class="panel-body">
+            <div class="row">
+               <div class="col-xs-12">
+                <img 
+                  src="../../../assets/images/loading-spinner.gif" 
+                  alt="loading gif image"
+                  style="margin-left: 150px;"
+                 >
+               </div>
+            </div>
+         </div>
+
          <div class="panel-footer">
             <!--Add tag to load the MessageEditComponent-->
             <cms-message-edit (addMessageEvent)="onAddMessage($event)"></cms-message-edit>
