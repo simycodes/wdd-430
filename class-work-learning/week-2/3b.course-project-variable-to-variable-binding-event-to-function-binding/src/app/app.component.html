@@ -1,0 +1,11 @@
+<app-header></app-header>
+<main>
+    <!-- LISTEN TO THE EVENT postCreated CREATED IN app-post-create OR GET DATA 
+    SENT OUT BY app-post-create USING AN EVENT/DATA EMITTER-->
+    <app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
+    <app-post-list [posts]="storedPosts"></app-post-list>
+
+    <!-- posts IS AN ARRAY VARIABLE @Input() posts = [] INSIDE post-list THAT RECEIVES 
+    DATA FROM OUTSIDE - IN THIS CASE RECEIVING FROM storedPosts FROM app-post-list 
+    COMPONENT.posts FROM post-list IS BOUND TO storedPosts FROM app-post-list -->
+</main>
