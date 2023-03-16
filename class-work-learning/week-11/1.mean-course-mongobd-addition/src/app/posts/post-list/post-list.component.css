@@ -1,0 +1,9 @@
+/* THIS TARGETS THE COMPONENT */
+:host {
+    display: block; /* Material components are set as inline by default - change this for styling purposes */
+    margin-top: 1rem;
+}
+
+.info-text {
+    text-align: center;
+}

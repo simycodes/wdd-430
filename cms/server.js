@@ -5,6 +5,7 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
 
 // import the routing file to handle the default (index) route
 // imports the app.js file in the server/routes folder and assigns it to a variable
@@ -17,16 +18,27 @@ const messageRoutes = require('./server/routes/messages.js');
 const contactRoutes = require('./server/routes/contacts');
 const documentsRoutes = require('./server/routes/documents');
 
+// establish a connection to the mongo database
+mongoose.connect('mongodb://127.0.0.1:27017/cms',
+   { useNewUrlParser: true }, (err, res) => {
+      if (err) {
+         console.log('Connection failed: ' + err);
+      }
+      else {
+         console.log('Connected to database!');
+      }
+   }
+);
+
 var app = express(); // create an instance of express
 
 // Tell express to use the following parsers for POST data
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
-app.use(logger('dev')); // Tell express to use the Morgan logger
+// Tell express to use the Morgan logger
+app.use(logger('dev')); 
 
 // Add support for CORS
 app.use((req, res, next) => {
@@ -47,7 +59,8 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, 'dist/cms')));
 
 // Tell express to map the default route ('/') to the index route
-// index is app.js file with code to be executed when the default URL (/) is specified in the browser
+// index is app.js file with code to be executed when the default URL (/) is specified 
+// in the browser
 app.use('/', index);
 
 // CODE TO MAP URL'S TO ROUTING FILES HERE ...
