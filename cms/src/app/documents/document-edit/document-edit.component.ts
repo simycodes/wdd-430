@@ -59,7 +59,7 @@ export class DocumentEditComponent implements OnInit {
       description = "Enter Course Description Here";
     }
     //CREATE NEW DOCUMENT USING THE DATA FROM THE USER 
-    const newDocument = new Document(id,name,description, url, " ");
+    const newDocument = new Document(id,name,description, url, []);
 
     // this.document.id = " ";
     // this.document.name = documentForm.value.name;

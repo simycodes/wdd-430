@@ -33,13 +33,13 @@ export class MessageService {
   // FUNCTION TO RETURN/GIVE ALL CONTACTS(A COPY - SLICE() IS USED) TO ALL COMPONENTS
   getMessages() {
     // return this.messages.slice();
-    this.http.get('https://wdd430-cms-7daa5-default-rtdb.firebaseio.com/messages.json')
+    this.http.get('http://localhost:3000/messages')
     .subscribe((messages: Message[])=> {
       this.messages = messages;
+      console.log(this.messages);
       this.maxMessageId = this.getMaxId();
       this.messages.sort((a, b) => (a.id < b.id)? 1 : (a.id > b.id)? -1: 0);
       this.messageChangedEvent.next(this.messages.slice());
-      // this.messageChangedEvent.emit(this.messages.slice());
     },
     (error: any) => {
       console.log(error);
@@ -67,10 +67,21 @@ export class MessageService {
 
   // FUNCTION TO ADD A NEW MESSAGE TO THE THE MESSAGE LIST
   addMessage(message: Message) {
-    // CHANGE/ADD A NEW MESSAGE TO THE ACTUAL contacts ARRAY, NOT THE COPY
-    this.messages.push(message);
-    // UPDATE THE DATABASE AND DISPLAY OF DOCUMENTS SHOWING NEWLY ADDED DOCUMENT
-    this.storeMessages();
+    if (!message) {
+      return;
+    }
+    // make sure id of the new message is empty
+    message.id = '';
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // add to database
+    this.http.post<{ subject: string, message: Message }>(
+      'http://localhost:3000/messages', message,{ headers: headers })
+      .subscribe((responseData) => {
+          // add new message to messages list
+          this.messages.push(responseData.message);
+          this.messageChangedEvent.next(this.messages.slice());
+        }
+      );
   }
 
 }

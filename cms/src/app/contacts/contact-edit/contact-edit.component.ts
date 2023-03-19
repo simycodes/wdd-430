@@ -55,16 +55,17 @@ export class ContactEditComponent {
   // FUNCTION TO ADD AND UPDATE A CONTACT ITEM
   onSubmit(contactForm: NgForm) {
     // GET VALUES FROM FORM AND ASSIGN THEM
+    let _id = '';
     let id = " ";
     let name = contactForm.value.name;
     let email = contactForm.value.email;
     let phone = contactForm.value.phone;
     let imageUrl = contactForm.value.imageUrl;
     let groupsC:any = this.groupContacts || [];
-    console.log(groupsC);
+    // console.log(groupsC);
     // let groupsC = contactForm.value.group;
     //CREATE NEW DOCUMENT USING THE DATA FROM THE USER 
-    const newContact = new Contact(id,name,email, phone, imageUrl, groupsC);
+    const newContact = new Contact(_id, id,name,email, phone, imageUrl, groupsC);
 
     if (this.editMode == true) {
       this.contactService.updateContact(this.originalContact, newContact)

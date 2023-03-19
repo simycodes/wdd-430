@@ -37,10 +37,24 @@ export class DocumentService {
     return maxId;
   }
 
+  // SORT DOCUMENTS AND SEND THEM TO THE DISPLAY
+  sortAndSend(){
+    this.documents.sort((a,b)=>{
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+    this.documentListChangedEvent.next(this.documents.slice())
+  }
+
   // FUNCTION TO RETURN/GIVE ALL DOCUMENTS TO ALL COMPONENTS
   getDocuments() {
     // return this.documents.slice();
-    this.http.get('https://wdd430-cms-7daa5-default-rtdb.firebaseio.com/documents.json')
+    this.http.get('http://localhost:3000/documents')
     .subscribe((documents: Document[])=> {
       this.documents = documents;
       this.maxDocumentId = this.getMaxId();
@@ -82,16 +96,23 @@ export class DocumentService {
   }
 
   // FUNCTION TO ADD A DOCUMENT
-  addDocument(newDocument: Document) {
-    // check to see if an actual document was passed to the function
-    if (!newDocument) {
+  addDocument(document: Document) {
+    if (!document) {
       return;
     }
-    this.maxDocumentId++;
-    newDocument.id = this.maxDocumentId.toString(); // newDocument.id GETS A String NOT a number
-    this.documents.push(newDocument);
-    // UPDATE THE DATABASE AND DISPLAY OF DOCUMENTS SHOWING NEWLY ADDED DOCUMENT
-    this.storeDocuments();
+    // make sure id of the new Document is empty
+    document.id = '';
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // add to database
+    this.http.post<{ message: string, document: Document }>(
+      'http://localhost:3000/documents', document,{ headers: headers })
+      .subscribe(
+        (responseData) => {
+          // add new document to documents
+          this.documents.push(responseData.document);
+          this.sortAndSend();
+        }
+      );
   }
 
   // FUNCTION TO UPDATE A DOCUMENT
@@ -100,39 +121,44 @@ export class DocumentService {
       return;
     }
 
-    // indexOf() gets the index position of the original document in the documents list
-    let pos = this.documents.indexOf(originalDocument);
-    console.log("THE INDEX POS IS " + pos);
+    const pos = this.documents.findIndex(d => d.id === originalDocument.id);
     if (pos < 0) {
       return;
     }
-
-    // ASSIGN ID OF NEW UPDATED DOCUMENT WITH ID OF OLD NOT UPDATED DOCUMENT 
+    // set the id of the new Document to the id of the old Document
     newDocument.id = originalDocument.id;
-    // documents list is then updated by assigning newDocument to the position in the 
-    // documents list where the originalDocument was found.
-    this.documents[pos] = newDocument;
-    console.log("DOCUMENT UPDATED")
-    // UPDATE THE DATABASE AND DISPLAY OF DOCUMENTS SHOWING NEWLY UPDATED DOCUMENT
-    this.storeDocuments();
+    // newDocument._id = originalDocument._id;
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // update database
+    this.http.put('http://localhost:3000/documents/' + originalDocument.id,
+      newDocument, { headers: headers })
+      .subscribe(
+        (response: Response) => {
+          this.documents[pos] = newDocument;
+          this.sortAndSend();
+        }
+      );
   }
 
   // FUNCTION TO DELETE A DOCUMENT
   deleteDocument(document: Document) {
-    console.log(document);
     if (!document) {
       return;
     }
-    const pos = this.documents.indexOf(document);
+
+    const pos = this.documents.findIndex(d => d.id === document.id);
     if (pos < 0) {
       return;
     }
 
-    // The splice() array method is called to remove the document at the 
-    // specified index position from the array
-    this.documents.splice(pos, 1);
-    
-    // UPDATE THE DATABASE AND DISPLAY OF DOCUMENTS AFTER THE DELETION
-    this.storeDocuments();
+    // delete from database
+    this.http.delete('http://localhost:3000/documents/' + document.id)
+      .subscribe(
+        (response: Response) => {
+          this.documents.splice(pos, 1);
+          this.sortAndSend();
+        }
+      );
   }
 }

@@ -20,15 +20,15 @@ export class MessageItemComponent implements OnInit {
   // USE getContact() OF CONTACT SERVICE TO GET NAME OF MESSAGE SENDER USING
   // THE MESSAGE FROM ID TO GET A GIVEN CONTACT AND THEN GET NAME FROM THAT CONTACT
   ngOnInit() {
-    // this.contactService.getContacts();
+    // console.log(this.message.sender);
     let contact: Contact = this.contactService.getContact(this.message.sender);
-    console.log(contact);
+    // console.log(contact);
     this.messageSenderName = contact?.name ?? "loading name...";
     // MAKE A SUBSCRIPTION TO THE CONTACT SERVICE TO ENSURE THAT THE MESSAGE
     // NAMES ARE UPDATED ACCORDING THEIR CORRESPONDING CONTACT NAMES
     this.subscription = this.contactService.contactListChangedEvent
     .subscribe(() => {
-        contact = this.contactService.getContact(this.message.sender)
+        contact = this.contactService.getContact(this.message.sender);
         this.messageSenderName = contact?.name ?? "loading name...";
     })
   }

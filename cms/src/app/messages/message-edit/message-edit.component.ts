@@ -8,7 +8,7 @@ import { MessageService } from '../message.service';
   styleUrls: ['./message-edit.component.css']
 })
 export class MessageEditComponent {
-  currentSender = '3';
+  currentSender = '641083a19c3b419e51471bcd';
 
   // GET ELEMENTS DIRECTLY FROM THE TEMPLATE USING @viewChild
   @ViewChild('subject', {static: true}) subjectRef: ElementRef;
@@ -22,7 +22,7 @@ export class MessageEditComponent {
   onSendMessage() {
     const subject =  this.subjectRef.nativeElement.value;
     const message = this.msgTextRef.nativeElement.value;
-    const newMessage =  new Message('6', subject, message, this.currentSender);
+    const newMessage =  new Message('', subject, message, this.currentSender);
     this.messageService.addMessage(newMessage);
   }
 

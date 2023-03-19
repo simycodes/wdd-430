@@ -21,18 +21,16 @@ export class ContactService {
   constructor(private http: HttpClient) {
     // NEEDED TO MAKE MESSAGES HAVE A SENDER NAME ONCE CONTACTS LIST IS UPLOADED
     this.contacts = this.getContacts();
-
     this.maxContactId = this.getMaxId();
   }
 
   // FUNCTION TO RETURN/GIVE ALL CONTACTS TO ALL COMPONENTS
   getContacts() {
     // return this.documents.slice();
-    this.http.get('https://wdd430-cms-7daa5-default-rtdb.firebaseio.com/contacts.json')
+    this.http.get('http://localhost:3000/contacts')
     .subscribe((contacts: Contact[])=> {
       this.contacts = contacts;
       this.maxContactId = this.getMaxId();
-      // this.contacts.sort((a, b) => (a.name < b.name)? 1 : (a.name > b.name)? -1: 0);
       this.contacts.sort((a, b) => {
         if(a.name < b.name){
           return -1;
@@ -72,9 +70,13 @@ export class ContactService {
 
   // FUNCTION TO FIND A SPECIFIC CONTACT IN ARRAY OF CONTACTS
   getContact(id: string): Contact {
-    console.log("called");
-    // this.getContacts();
     for (const contact of this.contacts) {
+        // console.log(contact);
+      // GET A CONTACT FOR MESSAGE NAME FUNCTIONALITY
+      if (contact._id == id || contact.id == id) {
+        return contact;
+      }
+      // GET A CONTACT FOR CONTACT DETAIL PAGE-COMPONENT
       if (contact.id == id) {
         return contact;
       }
@@ -96,34 +98,50 @@ export class ContactService {
   }
 
   // FUNCTION TO ADD A DOCUMENT
-  addContact(newContact: Contact) {
-    // check to see if an actual document was passed to the function
-    if (!newContact) {
+  addContact(contact: Contact) {
+    if (!contact) {
       return;
     }
-    this.maxContactId++;
-    newContact.id = this.maxContactId.toString(); // newDocument.id GETS A String NOT a number
-    this.contacts.push(newContact);
-    let contactsListClone = this.contacts.slice();
-    this.contactListChangedEvent.next(contactsListClone);
-    // UPDATE THE DATABASE AND DISPLAY OF DOCUMENTS SHOWING NEWLY ADDED DOCUMENT
-    this.storeContacts();
+    // make sure id of the new Document is empty
+    contact.id = '';
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // add to database
+    this.http.post<{ message: string, contact: Contact }>(
+      'http://localhost:3000/contacts', contact,{ headers: headers })
+      .subscribe((responseData) => {
+          // add new contact to documents
+          console.log(responseData.contact);
+          this.contacts.push(responseData.contact);
+          this.contactListChangedEvent.next(this.contacts.slice())
+        }
+      );
   }
 
   // FUNCTION TO UPDATE A DOCUMENT
   updateContact(originalContact: Contact, newContact: Contact) {
     if (!originalContact || !newContact) {
-      return
+      return;
     }
 
     let pos = this.contacts.indexOf(originalContact);
     if (pos < 0) {
       return;
     }
+    console.log(pos);
+    // set the id of the new Document to the id of the old Document
     newContact.id = originalContact.id;
     this.contacts[pos] = newContact;
-    // UPDATE THE DATABASE AND DISPLAY OF DOCUMENTS SHOWING NEWLY ADDED DOCUMENT
-    this.storeContacts();
+    // newDocument._id = originalDocument._id;
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // update database
+    this.http.put('http://localhost:3000/contacts/' + originalContact.id,
+      newContact, { headers: headers })
+      .subscribe((response: Response) => {
+          this.contacts[pos] = newContact;
+          this.contactListChangedEvent.next(this.contacts.slice());
+        }
+      );
   }
   
   // FUNCTION TO DELETE A CONTACT
@@ -135,12 +153,16 @@ export class ContactService {
     if (pos < 0) {
       return;
     }
-    // The splice() array method is called to remove the document at the specified index position from the array
-    this.contacts.splice(pos, 1);
-    // We then emit the contactChangedEvent to signal that a change has been made to the
-    // contact list and pass it a copy of the contact list stored in the ContactService class.
-    // UPDATE THE DATABASE AND DISPLAY OF DOCUMENTS SHOWING NEWLY ADDED DOCUMENT
-    this.storeContacts();
+    console.log(pos);
+
+    // delete from database -- String(contact.id))
+    this.http.delete('http://localhost:3000/contacts/' + contact.id)
+      .subscribe((response: Response) => {
+          this.contacts.splice(pos, 1);
+          this.contactListChangedEvent.next(this.contacts.slice());
+        }
+      );
+
   }
 
 }
