@@ -1,0 +1,24 @@
+
+<div class="list-group main-container">
+
+    <div class="list-group-item top">
+        <h1>{{meal?.name}}</h1>
+
+        <div class="image-and-button-holder">
+            <div class="pull-right">
+                <img src="{{meal?.imageUrl}}" alt="{{meal?.name}}" class="img-responsive" style="max-height: 200px;">
+            </div>
+            
+            <div class="pull-left buttons-container">
+                <a routerLink="edit" class="btn btn-primary">Edit</a>
+                <a (click)="onDelete()" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-group-item down">
+        <p>Description: {{meal?.description}}</p>
+        <p>Name: {{meal?.name}}</p>
+    </div>
+
+</div>

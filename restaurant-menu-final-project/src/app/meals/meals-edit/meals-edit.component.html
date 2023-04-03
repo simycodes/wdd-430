@@ -1,0 +1,103 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <form id="contact-edit" (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            name="name"
+            [ngModel]=meal?.name
+            #name="ngModel"
+            id="name"
+            class="form-control required"
+            size="120"
+            max="120"
+            required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="email">Price:</label>
+          <input
+            type="text"
+            name="price"
+            [ngModel]=meal?.price
+            #price="ngModel"
+            id="price"
+            class="form-control required"
+            size="120"
+            max="25"
+            required>
+        </div>
+      </div>
+      <div class="alert alert-danger" *ngIf="!price.valid && price.touched">
+        Enter the meal price!
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="phone">Category:</label>
+          <input
+            type="text"
+            name="category"
+            [ngModel]=meal?.category
+            #category="ngModel"
+            id="category"
+            class="form-control invalid"
+            size="150"
+            max="255">
+        </div>
+      </div>
+      <div class="alert alert-danger" *ngIf="!category.valid && category.touched">
+        Enter the meal category!    
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="phone">Description:</label>
+          <input
+            type="text"
+            name="description"
+            [ngModel]=meal?.description
+            #description="ngModel"
+            id="phone"
+            class="form-control invalid"
+            size="150"
+            max="255">
+        </div>
+      </div>
+      <div class="alert alert-danger" *ngIf="!description.valid && description.touched">
+        Enter the meal description!    
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="imageUrl">Image URL:</label>
+          <input
+            type="text"
+            name="imageUrl"
+            [ngModel]=meal?.imageUrl
+            id="imageUrl"
+            class="form-control"
+            size="150"
+            max="255">
+        </div>
+      </div>
+
+      <div class="alert alert-danger" *ngIf="!name.valid || !price.valid">
+        The Name and Price fields are required.
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 btn-toolbar">
+          <button [disabled]="!f.valid" class="btn btn-success" type="submit">Save</button>
+          <button class="btn btn-primary" type="button" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

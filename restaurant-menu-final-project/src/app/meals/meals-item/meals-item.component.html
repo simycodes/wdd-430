@@ -1,0 +1,22 @@
+<!-- <a [routerLink]="[meal?.id]" routerLinkActive="active" class="list-group-item clearfix contact-color-change">
+    
+    <div class="pull-left">
+        <h4 class="list-group-item-heading">{{meal?.name}}</h4>
+        <p class="list-group-item-text">{{meal?.description}}</p>
+    </div>
+
+    <span class="pull-right">
+        <img src="{{meal?.imageUrl}}" alt="{{meal?.name}}" class="img-responsive" style="max-height: 70px;">
+    </span>
+</a> -->
+
+<article [routerLink]="[meal?.id]" routerLinkActive="active" class='menu-item'>
+    <img src="{{meal?.imageUrl}}" alt="{{meal?.name}}" class='photo' />
+    <div class='item-info'>
+        <header>
+            <h4>{{meal?.name}}</h4>
+            <h4 className='price'>${{meal?.price}}</h4>
+        </header>
+        <p class='item-text'>{{meal?.description}}</p>
+    </div>
+</article>

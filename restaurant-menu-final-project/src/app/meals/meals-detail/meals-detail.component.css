@@ -1,0 +1,36 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    background-color: #eee;
+}
+
+.image-and-button-holder {
+    display: flex;
+    gap: 70px;
+}
+
+.buttons-container button {
+    margin-top: 10px;
+    margin: 5px;
+}
+
+.btn {
+    margin: 5px;
+}
+
+.down p {
+    font-size: 15px;
+}
+
+@media screen and (min-width: 1200px) {
+  .list-group {
+    width: 310px;
+    margin-left: 32rem;
+  }
+}

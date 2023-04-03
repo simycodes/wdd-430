@@ -1,0 +1,35 @@
+
+<section class="main">
+    <!-- title -->
+    <div class="title">
+      <h2>Restaurant Menu</h2>
+      <div class="underline"></div>
+      <div class="add-btn">
+        <a class="btn btn-success" [routerLink]="['new']">Add New Meal</a>
+      </div>
+    </div>
+
+            
+    <!-- single item -->
+    <div class="section-center">
+        <app-meals-item 
+           *ngFor='let mealElement of meals | mealsFilter:term'
+            [meal]="mealElement">
+        </app-meals-item>
+    </div>
+    
+
+</section>
+
+
+<div *ngIf="isLoading" class="list-group-item row">
+    <div class="col-xs-12">
+    <img 
+        src="../../../assets/images/loading-spinner.gif" 
+        alt="loading gif image"
+        style="margin-left: 150px;">
+    </div>
+</div>
+
+
+
